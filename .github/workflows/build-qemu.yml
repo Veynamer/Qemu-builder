@@ -30,7 +30,7 @@ jobs:
 
       - name: Compressing to zip
         run: |
-          zip -r QEMU_aarch64.zip home/runner/work/Qemu-builder/Qemu-builder/qemu/build/
+          zip -r QEMU_aarch64.zip ./build
           
       - name: Upload QEMU zip archive as artifact
         uses: actions/upload-artifact@v3
