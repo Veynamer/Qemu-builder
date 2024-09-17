@@ -30,7 +30,7 @@ jobs:
 
       - name: Compressing to tar.gz
         run: |
-          tar -czvf QEMU_aarch64.tar.gz ./build
+          tar -czvf QEMU_aarch64.tar.gz build
           
       - name: Upload QEMU zip archive as artifact
         uses: actions/upload-artifact@v3
