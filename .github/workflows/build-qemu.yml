@@ -28,12 +28,12 @@ jobs:
           ./configure --target-list=aarch64-softmmu --enable-virtfs
           make -j$(nproc)
 
-      - name: Compressing to zip
+      - name: Compressing to tar.gz
         run: |
-          zip -r QEMU_aarch64.zip ./build
+          tar -czvf QEMU_aarch64.tar.gz ./build
           
       - name: Upload QEMU zip archive as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: QEMU_aarch64.zip
+          name: QEMU_aarch64.tar.gz
           path: home/runner/work/Qemu-builder/Qemu-builder/qemu/
