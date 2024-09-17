@@ -1,0 +1,35 @@
+name: Build QEMU aarch64
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential git pkg-config \
+          libglib2.0-dev libpixman-1-dev \
+          ninja-build python3 python3-pip
+
+      - name: Clone QEMU repository
+        run: |
+          git clone https://git.qemu.org/git/qemu.git
+          cd qemu
+          git checkout master  # or specify a version tag
+
+      - name: Configure and build QEMU
+        run: |
+          cd qemu
+          ./configure --target-list=aarch64-softmmu --enable-virtfs
+          make -j$(nproc)
+
+      - name: Upload QEMU binary as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: qemu-aarch64
+          path: qemu/aarch64-softmmu/qemu-system-aarch64
